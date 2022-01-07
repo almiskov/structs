@@ -8,7 +8,7 @@ import (
 
 func main() {
 	sl := list.New[string]()
-	sl.AddMany([]string{"hello", "priv", "zdarove"})
+	sl.AddMany([]string{"hello", "priv", "zdarove"}...)
 	sl.ForEach(func(v string) { fmt.Print(v, " ") })
 
 	fmt.Println()
@@ -17,7 +17,7 @@ func main() {
 
 	fmt.Println(il.Len())
 
-	il.AddMany([]int{1, 2, 6, 323, 4})
+	il.AddMany([]int{1, 2, 6, 323, 4}...)
 	il.ForEach(func(v int) { fmt.Print(v, " ") })
 
 	fmt.Println()

@@ -7,11 +7,14 @@ type element[T any] struct {
 }
 
 // Prev returns the previous element of the list or nil if element is tail
-func (n *element[T]) Prev() *element[T] {
-	return n.prev
+func (e *element[T]) Prev() *element[T] {
+	if e == nil { return nil }
+	return e.prev
 }
 
 // Prev returns the next element of nil if element is head
-func (n *element[T]) Next() *element[T] {
-	return n.next
+func (e *element[T]) Next() *element[T] {
+	if e == nil { return nil }
+	return e.next
 }
+
