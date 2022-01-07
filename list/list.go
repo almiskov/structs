@@ -10,18 +10,18 @@ func New[T any]() *list[T] {
 }
 
 func (l *list[T]) add(v T) *element[T] {
-	n := element[T]{v: v}
+	n := &element[T]{v: v}
 
 	if l.head == nil {
-		l.head, l.tail = &n, &n
+		l.head, l.tail = n, n
 	} else {
-		l.tail.next = &n
+		l.tail.next = n
 		n.prev = l.tail
-		l.tail = &n
+		l.tail = n
 	}
 
 	l.len++
-	return &n
+	return n
 }
 
 func (l *list[T]) first(p func(v T) bool) *element[T] {
@@ -45,17 +45,23 @@ func (l *list[T]) find(p func(v T) bool) []*element[T] {
 
 func (l *list[T]) remove(p func(v T) bool) bool {
 	if el := l.first(p); el != nil {
-		if el == l.head {
-			l.head = el.next
-			l.head.prev = nil
-		} else if el == l.tail {
-			l.tail = el.prev
-			l.tail.next = nil
-		} else {
-			el.prev.next, el.next.prev = el.next, el.prev
-		}
-		l.len--
+		el.removeFrom(l)
 		return true
 	}
 	return false
 }
+
+func (l *list[T]) removeMany(p func(v T) bool) []T {
+	els := l.find(p)
+	rm := make([]T, len(els))
+
+	for i, e := range els {
+		rm[i] = e.v
+		e.removeFrom(l)
+	}
+	return rm
+}
+
+// TODO: implement methods: clear(), insertAt(idx int, v T), removeAt(idx int), indexOf(v T), forEach(func(v T)), map(???) (same as js Array.prototype.map())
+// TODO: write descriptions
+// TODO: try to implement some specific extension methods, e.g. Sum(), Min(), Max() fot list[int], if it's allowed
