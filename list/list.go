@@ -65,3 +65,4 @@ func (l *list[T]) removeMany(p func(v T) bool) []T {
 // TODO: implement methods: clear(), insertAt(idx int, v T), removeAt(idx int), indexOf(v T), forEach(func(v T)), map(???) (same as js Array.prototype.map())
 // TODO: write descriptions
 // TODO: try to implement some specific extension methods, e.g. Sum(), Min(), Max() fot list[int], if it's allowed
+// TODO: always return affected elements, so everybody becomes able to see prev and next elements

@@ -6,6 +6,15 @@ type element[T any] struct {
 	v          T
 }
 
+// Val returns value of the element or default value for T if element is nil
+func (e *element[T]) Val() T {
+	if e == nil {
+		var v T
+		return v
+	}
+	return e.v
+}
+
 // Prev returns the previous element of the list or nil if element is tail
 func (e *element[T]) Prev() *element[T] {
 	if e == nil {
@@ -14,7 +23,7 @@ func (e *element[T]) Prev() *element[T] {
 	return e.prev
 }
 
-// Prev returns the next element of nil if element is head
+// Next returns the next element of the list or nil if element is head
 func (e *element[T]) Next() *element[T] {
 	if e == nil {
 		return nil
