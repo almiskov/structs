@@ -32,7 +32,7 @@ func (e *element[T]) Next() *element[T] {
 }
 
 // removeFrom removes element from given list and decreases length of the list
-func (e *element[T]) removeFrom(l *list[T]) {
+func (e *element[T]) removeFrom(l *list[T]) *element[T] {
 	if e == l.head {
 		l.head = e.Next()
 		l.head.prev = nil
@@ -43,4 +43,5 @@ func (e *element[T]) removeFrom(l *list[T]) {
 		e.prev.next, e.next.prev = e.Next(), e.Prev()
 	}
 	l.len--
+	return e
 }
